@@ -1,0 +1,28 @@
+<h1>Edit {{data.taskToEdit.task}}</h1>
+<label>Priority:
+  <input [(ngModel)]="priority">
+</label>
+
+<label>Parent Task:
+  <input [(ngModel)]="parentTask">
+</label>
+
+<form [formGroup]="dateForm">
+  <label>Start Date
+    <mat-form-field>
+      <input matInput [matDatepicker]="startDatePicker" formControlName="startDate">
+      <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #startDatePicker></mat-datepicker>
+    </mat-form-field>
+  </label>
+  <label>End Date
+    <mat-form-field>
+      <input matInput [matDatepicker]="endDatePicker" formControlName="endDate">
+      <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #endDatePicker></mat-datepicker>
+    </mat-form-field>
+  </label>
+</form><br>
+<label *ngIf="noParentTask" id="noParent">There is no parent task with that name.</label><br>
+<button (click)="updateTask()">Update Task</button>
+<button (click)="closeDialog()">Close</button>

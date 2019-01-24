@@ -1,0 +1,10 @@
+/* li {
+    list-style-type: none;
+} */
+#errorMessages {
+    color: red;
+}
+
+#li-no-bullets {
+    list-style-type: none;
+}

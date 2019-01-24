@@ -1,0 +1,60 @@
+<div>
+  <label>Project:
+    <input [(ngModel)]="project.projectName" type="text" name="searchProjectName" [readonly]="true">
+    <button (click)="searchProjects()">Search</button>
+  </label>
+  <label>Sort Tasks By:</label>
+  <button (click)="sortByStartDate()">Start Date</button>
+  <button (click)="sortByEndDate()">End Date</button>
+  <button (click)="sortByPriority()">Priority</button>
+  <!-- <button (click)="sortByCompletion()">Completed</button> -->
+
+  <div *ngFor="let task of allTasksArray">
+    <ul class="list-group" name="taskListGroup" id="li-no-bullets">
+      <div>
+        <li class="list-group-item" *ngIf="task.status === 'active'">
+          <div class="col-4">
+          <!-- <div id="first-block" style="border:1px solid green;"> -->
+            <label>Task:
+              <input [value]="task.task" [readonly]="true">
+            </label>
+            <ng-template *ngIf="task.parent !== null; then showBlock; else notShowBlock">
+            </ng-template>
+
+            <ng-template #showBlock>
+              <label>Parent:
+                <input [value]="task.parent.parentTask" [readonly]="true">
+              </label>
+            </ng-template>
+
+            <ng-template #notShowBlock>
+              <label>Parent:
+                <input value="(No Parent)" [readonly]="true">
+              </label>
+            </ng-template>
+          </div>
+          <div class="col-7">
+          <!-- <div id="second-block" style="border:1px solid blue;"> -->
+            <label>Priority:
+              <input [value]="task.priority" [readonly]="true">
+            </label>
+            <label>Start:
+              <input [value]="task.startDate" [readonly]="true">
+            </label>
+            <label>End:
+              <input [value]="task.endDate" [readonly]="true">
+            </label>
+          </div>
+          <div class="col-1">
+          <!-- <div id="third-block" style="border:1px solid black;"> -->
+            <div class="row">
+              <button (click)="editTask(task)">Edit</button>
+            </div>
+            <div class="row">
+              <button (click)="endTask(task)">End Task</button>
+            </div>
+          </div>
+      </div>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+#errorMessages {
+    color: red;
+}
+
+#li-no-bullets {
+    list-style-type: none;
+}

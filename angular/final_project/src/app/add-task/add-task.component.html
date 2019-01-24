@@ -1,0 +1,44 @@
+<div>
+  <label *ngIf="parentCheck === false">Project:
+    <input [(ngModel)]="project.projectName" type="text" [readonly]="true" name="addProjectName">
+    <button (click)="searchProjects()">Search</button>
+  </label><br>
+  <label>Task:
+    <input [(ngModel)]="taskName" type="text" name="task">
+  </label><br>
+  <input [(ngModel)]="parentTaskBox" type="checkbox" [checked]="parentCheck" id="piscine" name="piscine" (change)="handleParent($event)">Parent
+  Task<br>
+  <div *ngIf="parentCheck === false">
+    <label>Priority:</label>
+    <mat-slider [(ngModel)]="priority" thumbLabel [displayWith]="formatLabel" tickInterval="1" min="0" max="30"></mat-slider><br>
+    <label>Parent Task:
+      <input [(ngModel)]="parentTask.parentTask" type="text" name="addProjectName" [readonly]="true">
+      <button (click)="searchParentTasks()">Search</button>
+    </label><br>
+    <input [(ngModel)]="dateSetter" type="checkbox" [checked]="dateCheck" id="piscine" name="piscine" (change)="handleDates($event)">
+    Set Start and End Date
+    <form [formGroup]="dateForm" *ngIf="showTheDates">
+      <mat-form-field>
+        <input matInput [matDatepicker]="startDatePicker" formControlName="startDate">
+        <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #startDatePicker></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [matDatepicker]="endDatePicker" formControlName="endDate">
+        <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #endDatePicker></mat-datepicker>
+      </mat-form-field>
+    </form><br>
+    <label>User:
+      <input [(ngModel)]="fullName.name" type="text" name="fullName" [readonly]="true">
+      <button (click)="searchUsers()">Search</button>
+    </label>
+  </div><br>
+  <button (click)="addTask()">Add Task</button>
+  <button>Reset</button>
+  <ul *ngFor="let message of errorMessages">
+      <li id="li-no-bullets">
+        <label id="errorMessages">{{message}}</label>
+      </li>
+    </ul>
+</div>

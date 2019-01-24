@@ -1,0 +1,63 @@
+<form>
+  <label>First Name:
+    <input [(ngModel)]="firstName" type="text" name="firstname">
+  </label>
+
+  <label>Last Name:</label>
+  <input [(ngModel)]="lastName" type="text" name="lastname"><br>
+
+  <label>Employee ID:</label>
+  <input [(ngModel)]="employeeId" type="text" name="employeeid"><br>
+
+  <button (click)="saveUser()" *ngIf="update === false">Add</button>
+  <button (click)="updateUser()" *ngIf="update === true">Update</button>
+  <button (click)="reset()">Reset</button>
+  <ul *ngFor="let message of errorMessages">
+    <li id="li-no-bullets">
+      <label id="errorMessages">{{message}}</label>
+    </li>
+  </ul>
+</form>
+<hr>
+<input [(ngModel)]="searchUserName" type="text" name="searchTerm" placeholder="Search...">
+<button (click)="sortBySearchTerm()">Search</button>
+<label>Sort:
+  <button (click)="sortByFirstName()">First Name</button>
+  <button (click)="sortByLastName()">Last Name</button>
+  <button (click)="sortByEmployeeId()">Employee Id</button>
+</label>
+<div class="list-group" *ngFor="let user of matchingUsers">
+  <ul class="list-group-item" name="userListGroup" *ngIf="user.status != 'inactive'">
+    <div class="row" id="li-no-bullets">
+      <li class="col-3">
+        <div>
+          <label>First Name:
+            <input [value]="user.firstName" [readonly]="true">
+          </label>
+        </div>
+      </li>
+      <li class="col-3">
+        <div>
+          <label>Last Name:
+            <input [value]="user.lastName" [readonly]="true">
+          </label>
+        </div>
+      </li>
+      <li class="col-3">
+        <div>
+          <label>Employee Id:
+            <input [value]="user.employeeId" [readonly]="true">
+          </label>
+        </div>
+      </li>
+      <li class="col-3">
+        <div class="row">
+          <button (click)="setUpdateFields(user.userId)">Update</button>
+        </div>
+        <div class="row">
+          <button (click)="removeUser(user.userId)">Delete</button>
+        </div>
+      </li>
+    </div>
+  </ul>
+</div>

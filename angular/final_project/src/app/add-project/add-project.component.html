@@ -1,0 +1,100 @@
+<div>
+  <label>Project:</label>
+  <input [(ngModel)]="addProjectName" type="text" name="addProjectName"><br>
+  <input [(ngModel)]="dateSetter" type="checkbox" [checked]="dateCheck" id="piscine" name="piscine" (change)="handleSelected($event)">
+  Set Start and End Date
+  <form [formGroup]="dateForm" *ngIf="showTheDates">
+    <mat-form-field>
+      <input matInput [matDatepicker]="startDatePicker" formControlName="startDate">
+      <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #startDatePicker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [matDatepicker]="endDatePicker" formControlName="endDate">
+      <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
+      <mat-datepicker #endDatePicker></mat-datepicker>
+    </mat-form-field>
+  </form><br>
+  <label>Priority:</label>
+  <!-- <mat-slider [(ngModel)]="priority" min="0" max="30" step="1.0" value="1.5"></mat-slider> -->
+  <mat-slider [(ngModel)]="priority" thumbLabel [displayWith]="formatLabel" tickInterval="1" min="0" max="30"></mat-slider><br>
+  <!-- <div>{{priority}}</div> -->
+  <label>Manager:</label>
+  <input [(ngModel)]="fullName.name" [readonly]="true" type="text" name="fullName">
+  <button (click)="searchUsers()">Search</button><br>
+  <button (click)="addProject()" *ngIf="update === false">Add</button>
+  <button (click)="updateProject()" *ngIf="update === true">Update</button>
+  <button (click)="reset()">Reset</button>
+  <ul *ngFor="let message of errorMessages">
+    <li id="li-no-bullets">
+      <label id="errorMessages">{{message}}</label>
+    </li>
+  </ul>
+</div>
+<hr>
+<div>
+  <input [(ngModel)]="searchProjectName" type="text" name="searchProjectName" placeholder="Search...">
+  <button (click)="sortBySearchTerm()">Search</button><br>
+  <label>Sort By:</label>
+  <button (click)="sortByStartDate()">Start Date</button>
+  <button (click)="sortByEndDate()">End Date</button>
+  <button (click)="sortByPriority()">Priority</button>
+  <button (click)="sortByCompletion()">Completed</button>
+
+<div class="list-group" *ngFor="let project of matchingProjects">
+  <ul class="list-group-item" name="projectListGroup" *ngIf="project.status != 'inactive'" id="li-no-bullets">
+    <div class="row">
+      <li class="col-4">
+        <div>
+          <label>Project:</label>
+          <input [value]="project.projectName" [readonly]="true">
+        </div>
+      </li>
+      <li class="col-4">
+        <div>
+          <label>Priority:</label>
+          <input [value]="project.priority" [readonly]="true">
+        </div>
+      </li>
+      <li class="col-4">
+        <button (click)="setUpdateFields(project.projectId)">Update</button>
+      </li>
+    </div>
+    <div class="row">
+      <li class="col-4">
+        <div>
+          <label>No. of Tasks:</label>
+          <input [value]="project.numTasks" [readonly]="true">
+        </div>
+      </li>
+      <li class="col-4">
+        <div>
+          <label>Completed:</label>
+          <input [value]="project.numCompletedTasks" [readonly]="true">
+        </div>
+      </li>
+      <li class="col-4">
+        <button (click)="removeProject(project.projectName)">Suspend</button>
+      </li>
+    </div>
+    <div class="row">
+      <li class="col-4">
+        <div>
+          <label>Start Date:</label>
+          <input [value]="project.startDate" [readonly]="true">
+        </div>
+      </li>
+      <li class="col-4">
+        <div>
+          <label>End Date:</label>
+          <input [value]="project.endDate" [readonly]="true">
+        </div>
+      </li>
+      <li class="col-4">
+        <div>
+          <label></label>
+        </div>
+      </li>
+    </div>
+  </ul>
+</div>
