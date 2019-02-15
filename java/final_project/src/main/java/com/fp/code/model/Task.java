@@ -1,7 +1,6 @@
 package com.fp.code.model;
 
 import java.sql.Date;
-import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,10 +10,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "task")
@@ -42,12 +40,14 @@ public class Task {
 	@Column(name = "status")
 	private String status;
 
-	// @JsonManagedReference
+//	 @JsonManagedReference
+//	@JsonBackReference
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
 	@JoinColumn(name = "parent_id")
 	private ParentTask parent;
 
-	// @JsonManagedReference(value = "project-tasks")
+//	 @JsonManagedReference(value = "project-tasks")
+//	@JsonBackReference
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH })
 	@JoinColumn(name = "project_id")
 	private Project projectTasks;

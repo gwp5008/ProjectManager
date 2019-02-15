@@ -41,7 +41,8 @@ public class Project {
 	@Column(name = "status")
 	private String status;
 
-	// @JsonBackReference(value = "project-tasks")
+//	@JsonManagedReference
+// @JsonBackReference(value = "project-tasks")
 	@JsonIgnore
 	@OneToMany(mappedBy = "projectTasks", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
 			CascadeType.REFRESH })

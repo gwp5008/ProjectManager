@@ -29,7 +29,7 @@ public class ParentTask {
 	@Column(name = "status")
 	private String status;
 
-	// @JsonBackReference
+//	@JsonManagedReference
 	@JsonIgnore
 	@OneToMany(mappedBy = "parent", cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH,
 			CascadeType.REFRESH })
